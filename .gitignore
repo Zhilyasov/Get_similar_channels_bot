@@ -1,0 +1,5 @@
+/.venv
+/.vscode
+/account.session
+/bot.session
+/channels.csv
