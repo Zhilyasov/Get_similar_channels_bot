@@ -7,11 +7,12 @@ import csv, os
 
 # подставляем собственные значения
 # bot
-api_id = 20943952
-api_hash = "87c18f57dc209acbf7117e359379795f"
+api_id = 23148002
+api_hash = "acf76f2bdfe2214e548d852a761c5852"
 bot_token = "7759371744:AAHvS4s5Fmn0HTcK2xckZqYRA3gP_WsBFmE"
-phone = "+523461130639"
-chanel_name = "myauuuuuun7"
+phone = "+79171676696"
+channel_id = -1001265979321
+channel_link = "https://t.me/+818h53bC89M4MjMy"
 
 
 # Алгоритмы работы бота
@@ -44,11 +45,11 @@ class Account:
         async def start_hnd(event):
             sender = await event.get_sender()
 
-            participants = await self.client.get_participants(f"@{chanel_name}")
+            participants = await self.client.get_participants(channel_id)
             if event.sender_id not in [p.id for p in participants]:
                 buttons = [
-                    [Button.url("Перейти на канал", f"https://t.me/{chanel_name}")],
-                    [Button.inline("Я подписан", b"i_am_subscribed")],
+                    [Button.url("Перейти на канал", channel_link)],
+                    [Button.inline("✅ Я подписан", b"i_am_subscribed")],
                 ]
                 # Отправляем сообщение с инлайн-клавиатурой
                 await event.respond(
@@ -66,7 +67,7 @@ class Account:
             if event.data == b"i_am_subscribed":
                 # Здесь проверка, подписан ли пользователь на канал
                 # с помощью метода get_participants
-                participants = await self.client.get_participants(f"@{chanel_name}")
+                participants = await self.client.get_participants(channel_id)
                 if event.sender_id in [p.id for p in participants]:
                     await event.respond(
                         "Спасибо за подписку! Теперь можете отправить ссылку на канал."
@@ -78,10 +79,10 @@ class Account:
         @self.client.on(events.NewMessage)
         async def send_channel_hnd(event):
             if event.text != "/start":
-                participants = await self.client.get_participants(f"@{chanel_name}")
+                participants = await self.client.get_participants(channel_id)
                 if event.sender_id not in [p.id for p in participants]:
                     buttons = [
-                        [Button.url("Перейти на канал", f"https://t.me/{chanel_name}")],
+                        [Button.url("Перейти на канал", channel_link)],
                         [Button.inline("Я подписан", b"i_am_subscribed")],
                     ]
                     # Отправляем сообщение с инлайн-клавиатурой
